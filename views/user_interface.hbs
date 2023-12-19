@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Booking</title>
+    <link rel="stylesheet" href="/user_interface.css">
+</head>
+<body>
+
+    <header>
+        <h1>Welcome {{Username}} !</h1>
+        <button class="logout-button" onclick="logout()">Logout</button>
+    </header>
+    <!-- room details in cards -->
+    <div class="room-cards-container">
+        <div class="room-card">
+            <img src="https://images.pexels.com/photos/7534269/pexels-photo-7534269.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Deluxe Room">
+            <h3>Deluxe Room</h3>
+            <p>Spacious room with a king-sized bed and a stunning view. <br> <br> Price: $150/night</p>
+            {{!-- <button class="book-button">Book Now</button> --}}
+        </div>
+
+        <div class="room-card">
+            <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/498055943.jpg?k=74eac72b3a6ff6221dae23d1479a171b3630c92f0e76a42a691c4ed9e45dd19f&o=&hp=1" alt="Executive Suite">
+            <h3>Executive Suite</h3>
+            <p>Luxurious suite with a separate living area and a jacuzzi. <br> <br> Price: $250/night</p>
+            {{!-- <button class="book-button">Book Now</button> --}}
+        </div>
+
+        <div class="room-card">
+            <img src="https://5.imimg.com/data5/KO/BP/XZ/GLADMIN-25496103/6w6a0075-1-500x500.jpg" alt="non ac rooms">
+            <h3>Non AC Room</h3>
+            <p>Luxurious suite with a separate living area and a jacuzzi. <br> <br> Price: $250/night</p>
+            {{!-- <button class="book-button">Book Now</button> --}}
+        </div>       
+    </div>
+    
+    <!-- booking details -->
+    <div class="booking-container">
+        <h2>Room Booking</h2>
+        <form action="/book" method="post">
+            <label for="roomType">Select Room Type:</label>
+            <select id="roomType" name="roomType" required>
+                <option value="deluxe">Deluxe Room</option>
+                <option value="suite">Executive Suite</option>
+                <option value="suite">Non Ac Room</option>
+            </select>
+            <!-- check in date -->
+            <label for="checkInDate">Check-in Date:</label>
+            <input type="date" id="checkInDate" name="checkInDate" required>
+            <!-- check out date -->
+            <label for="checkOutDate">Check-out Date:</label>
+            <input type="date" id="checkOutDate" name="checkOutDate" required>
+            <!-- no.of gest -->
+            <label for="guests">Number of Guests:</label>
+            <input type="number" id="guests" name="guests" min="1" required>
+            <button type="submit">Book Now</button>
+        </form>
+    </div>
+    <script>
+        function logout() {
+            alert("Logged out successfully!");
+            location.replace("/");
+        }
+    </script>
+</body>
+
+</html>

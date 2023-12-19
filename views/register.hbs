@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New User Registration</title>
+    <link rel="stylesheet" href="/register.css">
+</head>
+<body>
+    <div class="registration-container">
+        <h2>New User Registration</h2>
+        <form action="/submit" method="post"> 
+            <!-- user name -->
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <!-- email -->
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <!-- phone number -->
+            <label for="phone">Phone number:</label>
+            <input type="number" id="phone" name="phone" required>
+            <!-- password -->
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <!-- cf password -->
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <!-- submit -->
+            <button type="submit">Register</button>
+        </form>
+         <!-- Display error message -->
+        <div class="errorMessage">
+             {{#if errorMessage}}
+            <span style="color: red; text-align: center;">{{errorMessage}}</span>
+        {{/if}}
+        </div>
+        <p>Already have an account? <a href="/">Login here</a>.</p>
+    </div>
+</body>
+</html>
