@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Success</title>
+    <link rel="stylesheet" href="/booking_payment.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Booking Conformation</h2>
+        <div class="Table">
+        <table>
+            <tr>
+                <td><strong>Username:</strong></td>
+                <td>{{Username}}</td>
+            </tr>
+            <tr>
+                <td><strong>Room Type:</strong></td>
+                <td>{{RoomType}}</td>
+            </tr>
+            <tr>
+                <td><strong>Check-in Date:</strong></td>
+                <td>{{Check_In_Date}}</td>
+            </tr>
+            <tr>
+                <td><strong>Check-out Date:</strong></td>
+                <td>{{Check_Out_Date}}</td>
+            </tr>
+            <tr>
+                <td><strong>Number of Guests:</strong></td>
+                <td>{{Guests}}</td>
+            </tr>
+            <tr>
+                <td><strong>Price Per day:</strong></td>
+                <td>{{price_Per_Night}}</td>
+            </tr>
+             <tr>
+                <td><strong>Days:</strong></td>
+                <td>{{No_of_days}}</td>
+            </tr>
+            <tr>
+                <td><strong>Total:</strong></td>
+                <td>{{Total_Price}}</td>
+            </tr>
+        </table>
+    </div>
+        {{!-- payment --}}
+        <h2>Make Payment</h2>
+        <form action="/confirm_payment" method="post">
+            <!-- Payment form fields go here -->
+
+            <label for="cardNumber">Amount:</label>
+            <input type="text" id="cardNumber" name="cardNumber" value={{Total_Price}}>
+
+            <label for="cardNumber">Card Number:</label>
+            <input type="text" id="cardNumber" name="cardNumber" required>
+            
+            <label for="expiryDate">Expiry Date:</label>
+            <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" required>
+
+            <label for="cvv">CVV:</label>
+            <input type="text" id="cvv" name="cvv" required>
+
+            <button type="submit">Confirm Payment</button>
+        </form>
+        <div class="back-to-booking">
+            <a href="/user_interface">Back to Booking</a>
+        </div>
+    </div>
+</body>
+</html>

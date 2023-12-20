@@ -11,7 +11,6 @@ pages.get('/register', (req, res) => {
     res.render('register', { errorMessage: '' });
 });
 
-
 pages.get('/admin', (req, res) => {
     res.render('admin');
 });

@@ -40,11 +40,14 @@
     <div class="booking-container">
         <h2>Room Booking</h2>
         <form action="/book" method="post">
+        {{!-- user name --}}
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required value={{Username}}>
             <label for="roomType">Select Room Type:</label>
             <select id="roomType" name="roomType" required>
-                <option value="deluxe">Deluxe Room</option>
-                <option value="suite">Executive Suite</option>
-                <option value="suite">Non Ac Room</option>
+                <option value="Deluxe Room">Deluxe Room</option>
+                <option value="Executive Suite">Executive Suite</option>
+                <option value="Non Ac Room">Non Ac Room</option>
             </select>
             <!-- check in date -->
             <label for="checkInDate">Check-in Date:</label>

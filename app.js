@@ -34,9 +34,24 @@ app.set('views', path.join(__dirname, 'views'));
 app.use('/', pages);
 
 // user_interface
-var uname='';
+let uname='';
+let usname=uname;
 app.get('/user_interface', (req, res) => {
     res.render('user_interface', {Username:uname});
+});
+
+// payment and booking
+   let Username='';
+   let RoomType='';
+   let Check_In_Date='';
+   let Check_Out_Date='';
+   let Guests='';
+   let No_of_days='';
+   let price_Per_Night='';
+   let Total_Price='';
+
+app.get('/booking_payment',(req,res)=>{
+    res.render('booking_payment',{Username,RoomType,Check_In_Date,Check_Out_Date,Guests,price_Per_Night,Total_Price,No_of_days});
 });
 
 // register page submission form
@@ -92,10 +107,7 @@ function checkUserExists(username, email) {
     });
 }
 
-
-
 // login page code
-
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
     uname = username;
@@ -132,6 +144,60 @@ function checkLoginCredentials(username, password) {
         );
     });
 }
+
+// booking form
+app.post('/book', (req, res) => {
+    const { username, roomType, checkInDate, checkOutDate, guests } = req.body;
+    let pricePerNight = 0;
+    // room room price checking
+    if(roomType=='Deluxe Room') pricePerNight = 1000;
+    if(roomType=='Executive Suite') pricePerNight = 2500;
+    if(roomType=='Non Ac Room') pricePerNight = 4000;
+    // days calculation
+    const checkIn = new Date(checkInDate);
+    const checkOut = new Date(checkOutDate);
+    const numberOfNights =Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
+    // day = 0 mean consider to day = 1
+    let totalPrice = 0;
+    if(numberOfNights == 0){
+        totalPrice = pricePerNight * 1;
+        No_of_days = 1;
+    }
+    else{
+        totalPrice = numberOfNights * pricePerNight;
+        No_of_days = numberOfNights;
+    }
+    // initialization
+    Username= username;
+    RoomType= roomType;
+    Check_In_Date= checkInDate;
+    Check_Out_Date= checkOutDate;
+    Guests= guests;
+    price_Per_Night= pricePerNight;
+    Total_Price= totalPrice;
+
+    res.redirect('/booking_payment');
+});
+
+// confirm payment
+app.post('/confirm_payment',(req,res)=>{
+    // Insert data into the database
+    pool.query(
+        'INSERT INTO booking (username, room_type, check_in_date, check_out_date, number_of_guest, Amount, no_of_days) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        [Username, RoomType, Check_In_Date, Check_Out_Date, Guests, Total_Price, No_of_days],
+        (error, results) => {
+            if (error) {
+                console.error('Error inserting data:', error.message);
+                res.status(500).send('Internal Server Error');
+            } else {
+                console.log('Booking data inserted successfully!');
+                // Render the booking success page with data
+                res.send('booking and payment successfull');
+            }
+            res.end();
+        }
+    );
+});
 
 // Start the server
 app.listen(port, () => {
