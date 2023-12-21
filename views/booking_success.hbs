@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Success</title>
+    <link rel="stylesheet" href="booking_success.css">
+     <!-- Include html2pdf library from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+</head>
+<body>
+    <div class="download">
+    <div class="container">
+        <div class="success-circle">
+            <div class="success-icon">&#10004;</div>
+        </div>
+        <h2 class="reference-number">Booking Successful!</h2>
+        <div class="booking-details">
+           <div>
+            <p><strong>Username:</strong> {{Username}}</p>
+            <p><strong>Room Type:</strong> {{RoomType}}</p>
+            <p><strong>Check-in Date:</strong> {{Check_In_Date}}</p>
+            <p><strong>Check-out Date:</strong> {{Check_Out_Date}}</p>
+            <p><strong>Number of Guests:</strong> {{Guests}}</p>
+            <p><strong>Number of Nights:</strong> {{No_of_days}}</p>
+            <p><strong>Price Per Night:</strong> ${{price_Per_Night}}</p>
+            <p><strong>Total Price:</strong> ${{Total_Price}}</p>
+           </div>
+        </div>
+        <p class="reference-number">Reference Number: {{Refrence_number}}</p>
+    </div>
+            <button id="downloadButton">Download receipt</button>
+        </div>
+    <script>
+       document.getElementById('downloadButton').addEventListener('click', function () {
+        const element = document.querySelector('.container');
+        const filename = `ABC_hotelr.pdf`;
+        html2pdf(element, { filename: filename });
+    });
+     </script>
+</body>
+</html>

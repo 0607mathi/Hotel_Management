@@ -49,9 +49,16 @@ app.get('/user_interface', (req, res) => {
    let No_of_days='';
    let price_Per_Night='';
    let Total_Price='';
+   let Refrence_number ='';
 
+// payments page and booking confirmation
 app.get('/booking_payment',(req,res)=>{
     res.render('booking_payment',{Username,RoomType,Check_In_Date,Check_Out_Date,Guests,price_Per_Night,Total_Price,No_of_days});
+});
+
+// payment refrence number slip
+app.get('/booking_success',(req,res)=>{
+    res.render('booking_success',{Username,RoomType,Check_In_Date,Check_Out_Date,Guests,price_Per_Night,Total_Price,No_of_days,Refrence_number});
 });
 
 // register page submission form
@@ -150,9 +157,9 @@ app.post('/book', (req, res) => {
     const { username, roomType, checkInDate, checkOutDate, guests } = req.body;
     let pricePerNight = 0;
     // room room price checking
-    if(roomType=='Deluxe Room') pricePerNight = 1000;
-    if(roomType=='Executive Suite') pricePerNight = 2500;
-    if(roomType=='Non Ac Room') pricePerNight = 4000;
+    if(roomType=='Deluxe Room') pricePerNight =  2500;
+    if(roomType=='Executive Suite') pricePerNight = 4000;
+    if(roomType=='Non Ac Room') pricePerNight =  1000;
     // days calculation
     const checkIn = new Date(checkInDate);
     const checkOut = new Date(checkOutDate);
@@ -175,6 +182,11 @@ app.post('/book', (req, res) => {
     Guests= guests;
     price_Per_Night= pricePerNight;
     Total_Price= totalPrice;
+    // refrencenumber generation
+    function Random_Number() {
+         return Math.floor(Math.random()*(9999999999999999 - 1000000000000000 + 1)) + 1000000000000000;
+    }
+    Refrence_number = Random_Number();
 
     res.redirect('/booking_payment');
 });
@@ -183,8 +195,8 @@ app.post('/book', (req, res) => {
 app.post('/confirm_payment',(req,res)=>{
     // Insert data into the database
     pool.query(
-        'INSERT INTO booking (username, room_type, check_in_date, check_out_date, number_of_guest, Amount, no_of_days) VALUES (?, ?, ?, ?, ?, ?, ?)',
-        [Username, RoomType, Check_In_Date, Check_Out_Date, Guests, Total_Price, No_of_days],
+        'INSERT INTO booking (username, room_type, check_in_date, check_out_date, number_of_guest, no_of_days, Amount, refrence_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        [Username, RoomType, Check_In_Date, Check_Out_Date, Guests, No_of_days, Total_Price, Refrence_number],
         (error, results) => {
             if (error) {
                 console.error('Error inserting data:', error.message);
@@ -192,7 +204,7 @@ app.post('/confirm_payment',(req,res)=>{
             } else {
                 console.log('Booking data inserted successfully!');
                 // Render the booking success page with data
-                res.send('booking and payment successfull');
+                res.redirect('/booking_success');
             }
             res.end();
         }

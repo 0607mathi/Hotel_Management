@@ -1,0 +1,65 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    padding: 20px;
+    text-align: center;
+}
+
+.success-circle {
+    background-color: #4caf50;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.success-icon {
+    font-size: 60px;
+    color: #fff;
+}
+
+h2 {
+    color: #333;
+}
+
+.booking-details {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.booking-details div p {
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.reference-number {
+    color: #4caf50;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.download{
+    margin: 50px auto;
+    max-width: 800px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.download button{
+    align-self: center;
+    width:fit-content;
+    margin: 10px;
+}
