@@ -134,7 +134,6 @@ app.post('/login', (req, res) => {
         });
 });
 
-
 function checkLoginCredentials(username, password) {
     // console.log(username+" "+password);
     return new Promise((resolve, reject) => {
