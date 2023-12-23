@@ -33,12 +33,12 @@
 
         <div class="stat-box">
             <h3>Bookings Today</h3>
-            <p class="stat-value">25</p>
+            <p class="stat-value">{{Today_booking}}</p>
         </div>
 
         <div class="stat-box">
             <h3>Revenue Today</h3>
-            <p class="stat-value">$5000</p>
+            <p class="stat-value">${{Today_revenue}}</p>
         </div>
 
     </div>
@@ -78,56 +78,39 @@
     </div>
 </section>
 
-
         <!-- booking content -->
-
 <section id="bookings">
     <h2>Booking Management</h2>
-    <div class="bookings-content">
-        <div class="booking-card">
-            <h3>John Doe</h3>
-            <p>Room: Deluxe Room</p>
-            <p>Check-in: 2023-01-15</p>
-            <p>Check-out: 2023-01-20</p>
-            <p>Total Price: $750</p>
-            <button>Edit</button>
-            <button>Delete</button>
-        </div>
-
-        <div class="booking-card">
-            <h3>Jane Smith</h3>
-            <p>Room: Executive Suite</p>
-            <p>Check-in: 2023-02-10</p>
-            <p>Check-out: 2023-02-15</p>
-            <p>Total Price: $1250</p>
-            <button>Edit</button>
-            <button>Delete</button>
-        </div>
-
-    </div>
-</section>
-
-<!-- user content -->
-
-<section id="users">
-    <h2>User Management</h2>
-    <div class="users-content">
-        <div class="user-card">
-            <h3>John Doe</h3>
-            <p>Email: john.doe@example.com</p>
-            <p>Role: Admin</p>
-            <button>Edit</button>
-            <button>Delete</button>
-        </div>
-
-        <div class="user-card">
-            <h3>Jane Smith</h3>
-            <p>Email: jane.smith@example.com</p>
-            <p>Role: User</p>
-            <button>Edit</button>
-            <button>Delete</button>
-        </div>
-    </div>
+     <table>
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>Username</th>
+        <th>Room Type</th>
+        <th>Check-in Date</th>
+        <th>Check-out Date</th>
+        <th>Number of Guests</th>
+        <th>Number of Days</th>
+        <th>Amount</th>
+        <th>Reference Number</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each bookings}}
+      <tr>
+        <td>{{user_id}}</td>
+        <td>{{username}}</td>
+        <td>{{room_type}}</td>
+        <td>{{check_in_date}}</td>
+        <td>{{check_out_date}}</td>
+        <td>{{number_of_guest}}</td>
+        <td>{{no_of_days}}</td>
+        <td>${{Amount}}</td>
+        <td>{{refrence_number}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
 </section>
 
     </main>

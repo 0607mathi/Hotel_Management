@@ -11,10 +11,6 @@ pages.get('/register', (req, res) => {
     res.render('register', { errorMessage: '' });
 });
 
-pages.get('/admin', (req, res) => {
-    res.render('admin');
-});
-
 pages.get('/success', (req, res) => {
     res.render('success');
 });
@@ -23,4 +19,7 @@ pages.get('/forgot', (req, res) => {
     res.render('forgot');
 });
 
+pages.get('/admin_login', (req, res) => {
+    res.render('admin_login');
+});
 module.exports = pages;

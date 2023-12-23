@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Hotel Booking</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="login-container" style="width: 40%;">
+        <!-- login box -->
+        <h2>Admin Login</h2>
+        <form action="/admin_login" method="post"> 
+            <label for="username_admin">Username:</label>
+            <input type="text" id="username_admin" name="username_admin" required>
+            <label for="password_admin">Password:</label>
+            <input type="password" id="password_admin" name="password_admin" required>
+            <button type="submit">Login</button>
+        </form>
+         <!-- Display error message -->
+        {{#if errorMessage}}
+            <p style="color: red; text-align: center;">{{errorMessage}}</p>
+        {{/if}}
+    </div>
+</body>
+</html>

@@ -119,6 +119,7 @@ app.post('/login', (req, res) => {
     const { username, password } = req.body;
     uname = username;
     // Check if the entered username and password match a user in the database
+    // console.log("its work");
     checkLoginCredentials(username, password)
         .then((loginSuccessful) => {
             if (loginSuccessful) {
@@ -135,6 +136,7 @@ app.post('/login', (req, res) => {
 
 
 function checkLoginCredentials(username, password) {
+    // console.log(username+" "+password);
     return new Promise((resolve, reject) => {
         // Check if the entered username and password match a user in the database
         pool.query(
@@ -210,6 +212,96 @@ app.post('/confirm_payment',(req,res)=>{
         }
     );
 });
+// /------------------------cannot get post
+// Admin page login
+app.post('/admin_login', (req, res) => {
+    const { username_admin, password_admin } = req.body;
+    // uname = username;
+    // Check if the entered username and password match a user in the database
+    checkAdminCredentials(username_admin, password_admin)
+        .then((loginSuccessful) => {
+            if (loginSuccessful) {
+                res.redirect('/admin');
+            } else {
+                res.render('admin_login', { errorMessage: 'Invalid username or password.' });
+            }
+        })
+        .catch((error) => {
+            console.error('Error checking admin credentials:', error.message);
+            res.status(500).send('Internal Server Error');
+        });
+});
+
+
+function checkAdminCredentials(username_admin, password_admin) {
+    return new Promise((resolve, reject) => {
+        // Check if the entered username and password match a user in the database
+        pool.query(
+            'SELECT * FROM admin WHERE username = ? AND password = ?',
+            [username_admin, password_admin],
+            (error, results) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    // If results array has any length, login is successful
+                    resolve(results.length > 0);
+                }
+            }
+        );
+    });
+}
+
+// today booking
+let Today_booking=0;
+
+// today income
+let Today_revenue=0;
+
+// SQL query to get the count of rows
+const count = 'SELECT COUNT(*) AS row_count FROM booking';
+
+// Execute the query for count
+pool.query(count, (error, results) => {
+  if (error) {
+    console.error('Error executing query:', error.message);
+    // Handle the error
+  } else {
+    // Access the count from the results
+    const rowCount = results[0].row_count;
+    console.log('Number of rows in booking table:', rowCount);
+    Today_booking=rowCount;
+  }
+});
+
+// SQL query to get the sum of todays income
+const today_income = 'SELECT SUM(Amount) AS totalAmount FROM booking';
+
+// Execute the query for sum of todays income
+pool.query(today_income, (error, results) => {
+  if (error) {
+    console.error('Error executing query:', error.message);
+    // Handle the error
+  } else {
+    // Access the sum from the results
+    const totalAmount = results[0].totalAmount;
+    // console.log('Today\'s income:', totalAmount);
+    Today_revenue = totalAmount;
+  }
+});
+
+// Route to display booking details
+app.get('/admin', (req, res) => {
+    // Fetch booking details from the database
+    pool.query('SELECT * FROM booking', (error, results) => {
+      if (error) {
+        console.error('Error fetching data:', error.message);
+        res.status(500).send('Internal Server Error');
+      } else {
+        // Render the 'bookings' template and pass the data
+        res.render('admin', { bookings: results,Today_booking,Today_revenue});
+      }
+    });
+  });
 
 // Start the server
 app.listen(port, () => {
