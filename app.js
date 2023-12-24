@@ -341,7 +341,7 @@ app.post('/forgot', (req, res) => {
                     res.status(500).send('Internal Server Error');
                 } else {
                     console.log('Password change successful');
-                    res.render('admin_forgot', { Changed: 'Password change successful'});
+                    res.render('forgot', { Changed: 'Password change successful'});
                 }
             });
         }
