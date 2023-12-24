@@ -318,6 +318,68 @@ app.get('/admin', (req, res) => {
     });
 });
 
+// forgot password
+app.post('/forgot', (req, res) => {
+    const { email, password } = req.body;
+
+    // Check if the email exists
+    const check_email = 'SELECT * FROM user WHERE email = ?';
+    const update_password = 'UPDATE user SET password = ? WHERE email = ?';
+
+    pool.query(check_email, [email], (checkError, checkResults) => {
+        if (checkError) {
+            console.error(checkError);
+            res.status(500).send('Internal Server Error');
+        } else if (checkResults.length === 0) {
+            // Email doesn't exist
+            res.render('forgot', { errorMessage: 'Email not found' });
+        } else {
+            // Update the password (assuming password is hashed in a real-world scenario)
+            pool.query(update_password, [password, email], (updateError, updateResults) => {
+                if (updateError) {
+                    console.error(updateError);
+                    res.status(500).send('Internal Server Error');
+                } else {
+                    console.log('Password change successful');
+                    res.render('admin_forgot', { Changed: 'Password change successful'});
+                }
+            });
+        }
+    });
+});
+
+// admin forgot password
+app.post('/admin_forgot', (req, res) => {
+    const { admin_email, admin_password } = req.body;
+
+    // Check if the email exists
+    const check_email = 'SELECT * FROM admin WHERE email = ?';
+    const update_password = 'UPDATE admin SET password = ? WHERE email = ?';
+
+    pool.query(check_email, [admin_email], (checkError, checkResults) => {
+        if (checkError) {
+            console.error(checkError);
+            res.status(500).send('Internal Server Error');
+        } else if (checkResults.length === 0) {
+            // Email doesn't exist
+            res.render('admin_forgot', { errorMessage: 'Email not found' });
+        } else {
+            // Update the password (assuming password is hashed in a real-world scenario)
+            pool.query(update_password, [admin_password, admin_email], (updateError, updateResults) => {
+                if (updateError) {
+                    console.error(updateError);
+                    res.status(500).send('Internal Server Error');
+                } else {
+                    console.log('Password change successful');
+                    res.render('admin_forgot', { Changed: 'Password change successful'});
+                }
+            });
+        }
+    });
+});
+
+
+
 // Start the server
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

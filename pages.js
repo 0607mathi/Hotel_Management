@@ -16,7 +16,7 @@ pages.get('/success', (req, res) => {
 });
 
 pages.get('/forgot', (req, res) => {
-    res.render('forgot');
+    res.render('forgot',{errorMessage:'',Changed:''});
 });
 
 pages.get('/admin_login', (req, res) => {
@@ -24,6 +24,6 @@ pages.get('/admin_login', (req, res) => {
 });
 
 pages.get('/admin_forgot', (req, res) => {
-    res.render('admin_forgot');
+    res.render('admin_forgot',{errorMessage:'',Changed:''});
 });
 module.exports = pages;
