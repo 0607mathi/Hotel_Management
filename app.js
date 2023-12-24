@@ -212,7 +212,7 @@ app.post('/confirm_payment',(req,res)=>{
         }
     );
 });
-// /------------------------cannot get post
+
 // Admin page login
 app.post('/admin_login', (req, res) => {
     const { username_admin, password_admin } = req.body;
@@ -231,7 +231,6 @@ app.post('/admin_login', (req, res) => {
             res.status(500).send('Internal Server Error');
         });
 });
-
 
 function checkAdminCredentials(username_admin, password_admin) {
     return new Promise((resolve, reject) => {
@@ -252,56 +251,67 @@ function checkAdminCredentials(username_admin, password_admin) {
 }
 
 // today booking
-let Today_booking=0;
+let Today_booking = 0;
 
 // today income
-let Today_revenue=0;
+let Today_revenue = 0;
 
-// SQL query to get the count of rows
-const count = 'SELECT COUNT(*) AS row_count FROM booking';
-
-// Execute the query for count
-pool.query(count, (error, results) => {
-  if (error) {
-    console.error('Error executing query:', error.message);
-    // Handle the error
-  } else {
-    // Access the count from the results
-    const rowCount = results[0].row_count;
-    console.log('Number of rows in booking table:', rowCount);
-    Today_booking=rowCount;
-  }
-});
-
-// SQL query to get the sum of todays income
-const today_income = 'SELECT SUM(Amount) AS totalAmount FROM booking';
-
-// Execute the query for sum of todays income
-pool.query(today_income, (error, results) => {
-  if (error) {
-    console.error('Error executing query:', error.message);
-    // Handle the error
-  } else {
-    // Access the sum from the results
-    const totalAmount = results[0].totalAmount;
-    // console.log('Today\'s income:', totalAmount);
-    Today_revenue = totalAmount;
-  }
-});
-
-// Route to display booking details
+// Route to display booking and user details in admin page
 app.get('/admin', (req, res) => {
-    // Fetch booking details from the database
-    pool.query('SELECT * FROM booking', (error, results) => {
-      if (error) {
-        console.error('Error fetching data:', error.message);
-        res.status(500).send('Internal Server Error');
-      } else {
-        // Render the 'bookings' template and pass the data
-        res.render('admin', { bookings: results,Today_booking,Today_revenue});
-      }
+    // Get the count of rows
+    const count = 'SELECT COUNT(*) AS row_count FROM booking';
+
+    // Get the sum of today's income
+    const todayIncome = 'SELECT SUM(Amount) AS total_Amount FROM booking';
+
+    // Execute the query for count
+    pool.query(count, (errorCount, resultsCount) => {
+        if (errorCount) {
+            console.error('Error executing count query:', errorCount.message);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+
+        // Count from the results
+        const rowCount = resultsCount[0].row_count;
+        Today_booking = rowCount;
+
+        // Execute the query for sum of today's income
+        pool.query(todayIncome, (errorIncome, resultsIncome) => {
+            if (errorIncome) {
+                console.error('Error executing today\'s income query:', errorIncome.message);
+                res.status(500).send('Internal Server Error');
+                return;
+            }
+
+            // Access the sum from the results
+            const total_Amount = resultsIncome[0].total_Amount;
+            Today_revenue = total_Amount;
+
+            // Fetch booking details from the database
+            pool.query('SELECT * FROM booking', (errorBooking, resultsBooking) => {
+                if (errorBooking) {
+                    console.error('Error fetching booking data:', errorBooking.message);
+                    res.status(500).send('Internal Server Error');
+                    return;
+                }
+
+                // Fetch user details from the database
+                pool.query('SELECT userid, username, email, phone FROM user', (errorUser, resultsUser) => {
+                    if (errorUser) {
+                        console.error('Error fetching user data:', errorUser.message);
+                        res.status(500).send('Internal Server Error');
+                        return;
+                    }
+
+                    // Render the 'admin' template and pass both sets of data
+                    res.render('admin', { bookings: resultsBooking, user: resultsUser, Today_booking, Today_revenue });
+                });
+            });
+        });
     });
-  });
+});
+
 
 // Start the server
 app.listen(port, () => {

@@ -17,22 +17,25 @@
         <div class="room-card">
             <img src="https://images.pexels.com/photos/7534269/pexels-photo-7534269.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Deluxe Room">
             <h3>Deluxe Room</h3>
-            <p>Spacious room with a king-sized bed and a stunning view. <br> <br> Price: $2500/night</p>
-           <a href="#booking"> <button class="book-button">Book Now</button> </a>
+            <p>Experience the comfort of our spacious Deluxe Room, featuring a luxurious king-sized bed and a breathtaking view. 
+            <br><br> Price: ₹2500 per day</p>
+           <a href="#booking"> <button class="book-button" onclick="book_now1()">Book Now</button> </a>
         </div>
 
         <div class="room-card">
             <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/498055943.jpg?k=74eac72b3a6ff6221dae23d1479a171b3630c92f0e76a42a691c4ed9e45dd19f&o=&hp=1" alt="Executive Suite">
             <h3>Executive Suite</h3>
-            <p>Luxurious suite with a separate living area and a jacuzzi. <br> <br> Price: $4000/night</p>
-           <a href="#booking"> <button class="book-button">Book Now</button> </a>
+            <p>Indulge in luxury with our Executive Suite, featuring a spacious living area and a relaxing jacuzzi. 
+            <br><br> Price: ₹4000 per day</p>
+           <a href="#booking"> <button class="book-button" onclick="book_now2()">Book Now</button> </a>
         </div>
 
         <div class="room-card">
             <img src="https://5.imimg.com/data5/KO/BP/XZ/GLADMIN-25496103/6w6a0075-1-500x500.jpg" alt="non ac rooms">
             <h3>Non AC Room</h3>
-            <p>Luxurious suite with a separate living area and a jacuzzi. <br> <br> Price: $1000/night</p>
-           <a href="#booking"> <button class="book-button">Book Now</button> </a>
+            <p>Enjoy comfort and simplicity with our Non AC Room and Experience simplicity, ideal for a tranquil stay. 
+            <br><br> Price: ₹1000 per day</p>
+           <a href="#booking"> <button class="book-button" onclick="book_now3()">Book Now</button> </a>
         </div>       
     </div>
     
@@ -65,6 +68,21 @@
         function logout() {
             alert("Logged out successfully!");
             location.replace("/");
+        }
+        function book_now1(){
+               let selectElement = document.getElementsByTagName('select')[0];
+               let selectedValue = "Deluxe Room";
+               selectElement.value = selectedValue;
+        }
+        function book_now2(){
+               let selectElement = document.getElementsByTagName('select')[0];
+               let selectedValue = "Executive Suite";
+               selectElement.value = selectedValue;
+        }
+        function book_now3(){
+               let selectElement = document.getElementsByTagName('select')[0];
+               let selectedValue = "Non Ac Room";
+               selectElement.value = selectedValue;
         }
     </script>
 </body>

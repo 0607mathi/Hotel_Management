@@ -16,7 +16,7 @@
             <li><a href="#dashboard">Dashboard</a></li>
             <li><a href="#rooms">Rooms</a></li>
             <li><a href="#bookings">Bookings</a></li>
-            <li><a href="#users">Users</a></li>
+             <li><a href="#users">Users</a></li>
             <li><a href="#" onclick="logout()">Logout</a></li>
         </ul>
     </nav>
@@ -38,7 +38,7 @@
 
         <div class="stat-box">
             <h3>Revenue Today</h3>
-            <p class="stat-value">${{Today_revenue}}</p>
+            <p class="stat-value">₹{{Today_revenue}}</p>
         </div>
 
     </div>
@@ -51,40 +51,34 @@
     <div class="rooms-content">
         <div class="room-card">
             <img src="https://images.pexels.com/photos/7534269/pexels-photo-7534269.jpeg" alt="Room 1">
-            <h3>Deluxe Room</h3>
-            <p>Spacious room with a king-sized bed and a stunning view.</p>
-            <p>Price: $150/night</p>
-            <button>Edit</button>
-            <button>Delete</button>
+             <h3>Deluxe Room</h3>
+            <p>Experience the comfort of our spacious Deluxe Room, featuring a luxurious king-sized bed and a breathtaking view. 
+            <br><br> <strong>Price:</strong> ₹2500 per day</p>
         </div>
 
         <div class="room-card">
             <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/498055943.jpg?k=74eac72b3a6ff6221dae23d1479a171b3630c92f0e76a42a691c4ed9e45dd19f&o=&hp=1" alt="Room 2">
             <h3>Executive Suite</h3>
-            <p>Luxurious suite with a separate living area and a jacuzzi.</p>
-            <p>Price: $250/night</p>
-            <button>Edit</button>
-            <button>Delete</button>
+            <p>Indulge in luxury with our Executive Suite, featuring a spacious living area and a relaxing jacuzzi. 
+            <br><br> <strong>Price:</strong> ₹4000 per day</p>
         </div>
 
         <div class="room-card">
             <img src="https://5.imimg.com/data5/KO/BP/XZ/GLADMIN-25496103/6w6a0075-1-500x500.jpg" alt="Room 3">
             <h3>Non AC Room</h3>
-            <p>Luxurious suite with a separate living area and a jacuzzi.</p>
-            <p>Price: $250/night</p>
-            <button>Edit</button>
-            <button>Delete</button>
+            <p>Enjoy comfort and simplicity with our Non AC Room and Experience simplicity, ideal for a tranquil stay. 
+            <br><br> <strong>Price:</strong> ₹1000 per day</p>
         </div>
     </div>
 </section>
 
-        <!-- booking content -->
+<!-- booking content -->
 <section id="bookings">
     <h2>Booking Management</h2>
      <table>
     <thead>
       <tr>
-        <th>User ID</th>
+        <th>S.No</th>
         <th>Username</th>
         <th>Room Type</th>
         <th>Check-in Date</th>
@@ -98,15 +92,40 @@
     <tbody>
       {{#each bookings}}
       <tr>
-        <td>{{user_id}}</td>
+        <td>{{S_no}}</td>
         <td>{{username}}</td>
         <td>{{room_type}}</td>
         <td>{{check_in_date}}</td>
         <td>{{check_out_date}}</td>
         <td>{{number_of_guest}}</td>
         <td>{{no_of_days}}</td>
-        <td>${{Amount}}</td>
+        <td>₹{{Amount}}</td>
         <td>{{refrence_number}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</section>
+
+<!-- user content -->
+<section id="users">
+    <h2>User Management</h2>
+     <table>
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Phone</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each user}}
+      <tr>
+        <td>{{userid}}</td>
+        <td>{{username}}</td>
+        <td>{{email}}</td>
+        <td>{{phone}}</td>
       </tr>
       {{/each}}
     </tbody>

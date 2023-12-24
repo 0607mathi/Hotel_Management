@@ -23,13 +23,14 @@
             <p><strong>Check-out Date:</strong> {{Check_Out_Date}}</p>
             <p><strong>Number of Guests:</strong> {{Guests}}</p>
             <p><strong>Number of Nights:</strong> {{No_of_days}}</p>
-            <p><strong>Price Per Night:</strong> ${{price_Per_Night}}</p>
-            <p><strong>Total Price:</strong> ${{Total_Price}}</p>
+            <p><strong>Price Per Night:</strong> ₹{{price_Per_Night}}</p>
+            <p><strong>Total Price:</strong> ₹{{Total_Price}}</p>
            </div>
         </div>
         <p class="reference-number">Reference Number: {{Refrence_number}}</p>
-    </div>
+        </div>
             <button id="downloadButton">Download receipt</button>
+            <button id="home">Home</button>
         </div>
     <script>
        document.getElementById('downloadButton').addEventListener('click', function () {
@@ -37,6 +38,11 @@
         const filename = `ABC_hotelr.pdf`;
         html2pdf(element, { filename: filename });
     });
+
+      document.getElementById('home').addEventListener('click', function () {
+        location.replace("/user_interface");
+    });
+
      </script>
 </body>
 </html>
