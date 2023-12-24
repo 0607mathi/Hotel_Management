@@ -9,14 +9,14 @@
 </head>
 <body>
     <div class="forgot-password-container">
-        <h2>Forgot Password</h2>
+        <h2>Admin <br> Forgot Password</h2>
         <p>Enter your email address to receive a password reset link.</p>
-        <form action="/forgot" method="post">
+        <form action="/admin_forgot" method="post">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
             <button type="submit">Reset Password</button>
         </form>
-        <p>Remember your password? <a href="/">Login here</a>.</p>
+        <p>Remember your password? <a href="/admin_login">Login here</a>.</p>
     </div>
 </body>
 </html>

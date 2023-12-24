@@ -22,4 +22,8 @@ pages.get('/forgot', (req, res) => {
 pages.get('/admin_login', (req, res) => {
     res.render('admin_login');
 });
+
+pages.get('/admin_forgot', (req, res) => {
+    res.render('admin_forgot');
+});
 module.exports = pages;
