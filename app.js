@@ -35,9 +35,16 @@ app.use('/', pages);
 
 // user_interface
 let uname='';
-let usname=uname;
 app.get('/user_interface', (req, res) => {
-    res.render('user_interface', {Username:uname});
+    // fetch details from bookings table to displaying
+    pool.query('SELECT username, room_type, check_in_date, check_out_date, number_of_guest, no_of_days ,Amount FROM booking where username =?',[uname], (error, results) => {
+        if (error) {
+            console.error('Error fetching user data:', errorUser.message);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+    res.render('user_interface',{bookings:results,Username:uname});
+});
 });
 
 // payment and booking
@@ -310,7 +317,6 @@ app.get('/admin', (req, res) => {
         });
     });
 });
-
 
 // Start the server
 app.listen(port, () => {

@@ -65,6 +65,39 @@
             <button type="submit">Book Now</button>
         </form>
     </div>
+
+    <main>
+    <!-- user booking details -->
+    <section id="users">
+    <h2>Your Bookings</h2>
+     <table>
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Room Type</th>
+        <th>Check-in Date</th>
+        <th>Check-out Date</th>
+        <th>Guests</th>
+        <th>Days</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each bookings}}
+      <tr>
+        <td>{{username}}</td>
+        <td>{{room_type}}</td>
+        <td>{{check_in_date}}</td>
+        <td>{{check_out_date}}</td>
+        <td>{{number_of_guest}}</td>
+        <td>{{no_of_days}}</td>
+        <td>{{Amount}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</section>
+    </main>
     <script>
         function logout() {
             alert("Logged out successfully!");
